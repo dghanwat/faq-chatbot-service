@@ -15,6 +15,9 @@
     "lib": [
       "es2017",
       "dom"
-    ]
+    ],
+    "paths": {
+      "angular-autobot": ["projects/angular-autobot/src/public_api.ts"]
+    }
   }
 }

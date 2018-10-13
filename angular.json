@@ -180,6 +180,44 @@
           }
         }
       }
+    },
+    "angular-autobot": {
+      "root": "projects/angular-autobot",
+      "sourceRoot": "projects/angular-autobot/src",
+      "projectType": "library",
+      "prefix": "autobot",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/angular-autobot/tsconfig.lib.json",
+            "project": "projects/angular-autobot/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "project": "projects/angular-autobot/ng-package.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/angular-autobot/src/test.ts",
+            "tsConfig": "projects/angular-autobot/tsconfig.spec.json",
+            "karmaConfig": "projects/angular-autobot/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/angular-autobot/tsconfig.lib.json",
+              "projects/angular-autobot/tsconfig.spec.json"
+            ],
+            "exclude": ["**/node_modules/**"]
+          }
+        }
+      }
     }
   },
   "defaultProject": "angular2-full-stack",

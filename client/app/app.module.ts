@@ -15,10 +15,17 @@ import { PushNotificationsModule, PushNotificationsService } from 'ng-push';
 import { WindowRef } from './services/window.ref';
 import { Http , HttpModule , ConnectionBackend } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
-
+import {AngularAutobotModule} from 'angular-autobot';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
+import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
+
+const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+  suppressScrollX: true
+};
 
 export function tokenGetter() {
   return localStorage.getItem('token');
@@ -44,7 +51,9 @@ export function tokenGetter() {
         tokenGetter: tokenGetter,
         // whitelistedDomains: ['localhost:3000', 'localhost:4200']
       }
-    })
+    }),
+    AngularAutobotModule,
+    PerfectScrollbarModule
   ],
   providers: [
     UserService,
@@ -55,7 +64,11 @@ export function tokenGetter() {
     DisplayNotificationService,
     PushNotificationsService,
     NotificationsService,
-    WindowRef
+    WindowRef,
+    {
+      provide: PERFECT_SCROLLBAR_CONFIG,
+      useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    }
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]
