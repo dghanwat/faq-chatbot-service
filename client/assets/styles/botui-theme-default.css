@@ -7,11 +7,13 @@ body {
 .botui-container {
 	font-size: 14px;
     font-family: "Open Sans", sans-serif;
-    background-color: #25ceb6 !important;
+	background-color: #25ceb6 !important;
+	
 }
 
 .botui-messages-container {
-	padding: 10px 20px
+	padding: 10px 20px;
+	
 }
 
 .botui-actions-container {
@@ -179,12 +181,19 @@ button.botui-actions-buttons-button {
 .botui-app-container {
 	width: 100%;
 	height: 100%;
-	line-height: 1
+	line-height: 1;
+	border-radius: 18px 18px 18px 18px;
+-moz-border-radius: 18px 18px 18px 18px;
+-webkit-border-radius: 18px 18px 18px 18px;
+border: 0px solid #28635a;
+/* -webkit-box-shadow: 1px -1px 14px 6px rgba(40,99,90,1);
+-moz-box-shadow: 1px -1px 14px 6px rgba(40,99,90,1);
+box-shadow: 1px -1px 14px 6px rgba(40,99,90,1); */
 }
 
 @media (min-width:400px) {
 	.botui-app-container {
-		width: 400px;
+		width: 500px;
 		height: 500px;
 		margin: 0 auto
 	}
