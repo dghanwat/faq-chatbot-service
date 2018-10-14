@@ -445,6 +445,10 @@ button.botui-actions-buttons-button:not(:last-child) {
     color: #b6fff5;
 }
 
+.vd_bg-green {
+	background-color: #1fae66 !important;
+}
+
 .btn-sm {
     width: 40px;
     height: 40px;
@@ -466,4 +470,11 @@ button.botui-actions-buttons-button:not(:last-child) {
 .ps__rail-y:hover > .ps__thumb-y, .ps__rail-y:focus > .ps__thumb-y, .ps__rail-y.ps--clicking .ps__thumb-y {
     background-color: #b6fff5 !important;
     width: 11px;
+}
+
+.btn-lg {
+    width: 80px;
+    height: 80px;
+    line-height: 76px;
+    font-size: 36px;
 }

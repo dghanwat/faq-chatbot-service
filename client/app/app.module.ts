@@ -1,6 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA , APP_INITIALIZER } from '@angular/core';
 import { JwtModule } from '@auth0/angular-jwt';
 import { SimpleNotificationsModule, NotificationsService } from 'angular2-notifications';
+import { ReactiveFormsModule } from '@angular/forms';
 import { LoggerModule, NgxLoggerLevel } from 'ngx-logger';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { RoutingModule } from './routing.module';
@@ -18,11 +19,13 @@ import { HttpClientModule } from '@angular/common/http';
 import {AngularAutobotModule} from 'angular-autobot';
 import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
+import { QnAComponent } from './training/qna/qna.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
 import { PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { ChatService } from './services/chat.service';
+
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true
@@ -36,7 +39,8 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     HomeComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    QnAComponent
   ],
   imports: [
     HttpModule,
@@ -54,7 +58,8 @@ export function tokenGetter() {
       }
     }),
     AngularAutobotModule,
-    PerfectScrollbarModule
+    PerfectScrollbarModule,
+    ReactiveFormsModule
   ],
   providers: [
     UserService,
