@@ -1,0 +1,34 @@
+{
+    "training_data": {
+        "data_set": [
+            {
+                "question": "Who is Sachin",
+                "answer": "Sachin is the best batsmen"
+            },
+            {
+                "question": "How many runs has Sachin scored",
+                "answer": "More than 50000"
+            },
+            {
+                "question": "Who is Sachin",
+                "answer": "Sachin is the best batsmen"
+            },
+            {
+                "question": "How many runs has Sachin scored",
+                "answer": "More than 50000"
+            },
+            {
+                "question": "how many hunderds have sachin scored",
+                "answer": "101 in both tests and odis"
+            },
+            {
+                "question": "when is sachin's birthday",
+                "answer": "28th September"
+            },
+            {
+                "question": "what is the weather today",
+                "answer": "it looks to be sunny but you never know"
+            }
+        ]
+    }
+}

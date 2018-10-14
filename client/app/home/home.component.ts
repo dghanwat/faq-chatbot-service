@@ -1,7 +1,10 @@
-import { Component, OnInit , Renderer2 } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { AngularAutobotService } from 'angular-autobot';
 import * as uuidv1 from 'uuid/v1';
 import * as _ from 'lodash';
+import { ChatService } from '../services/chat.service';
+import { ChatMessage } from '../shared/models/chatMessage.model';
+import { ToastComponent } from '../shared/toast/toast.component';
 
 @Component({
   selector: 'app-home',
@@ -13,15 +16,14 @@ export class HomeComponent implements OnInit {
   botId: string = 'bot1';
   BOT: string = "BOT";
   HUMAN: string = "HUMAN";
+  asyncMesgId:any;
+
   constructor(private botService: AngularAutobotService,
-    private renderer: Renderer2) { }
+    private chatService: ChatService,
+    public toast: ToastComponent) { }
 
 
   ngOnInit() {
-    const messages = [
-      'Hello there',
-      'Hello fom Bot'
-    ];
     setTimeout(() => {
       this.showWelcomeMessages('Hello There', this.BOT);
     }, 1000);
@@ -35,16 +37,16 @@ export class HomeComponent implements OnInit {
   }
 
   showWelcomeMessages(content, from) {
-      const asyncMesgId = this.botService.bot(this.botId).addBotMessage({
-        id: uuidv1(),
-        type: 'text',
-        visible: true,
-        loading: true,
-        content: content,
-        human: false,
-        created_date: new Date()
-      });
-      this.doneLoading(this.botId, asyncMesgId, 500);
+    const asyncMesgId = this.botService.bot(this.botId).addBotMessage({
+      id: uuidv1(),
+      type: 'text',
+      visible: true,
+      loading: true,
+      content: content,
+      human: false,
+      created_date: new Date()
+    });
+    this.doneLoading(this.botId, asyncMesgId, 500);
   }
 
   showBotResponse(content) {
@@ -58,7 +60,7 @@ export class HomeComponent implements OnInit {
       created_date: new Date()
     });
     return asyncMesgId;
-}
+  }
 
   askAnyQuestion(botId, timeout) {
     return _.sample([this.askButtonQuestion.bind(this), this.askTextInputQuestion.bind(this)])(
@@ -84,22 +86,34 @@ export class HomeComponent implements OnInit {
             // freeze: true,
             // freezeUntilLoad: true
           });
-         // Make a rest call tp API with what the user types
+          // Make a rest call tp API with what the user types
           const asyncMesgId = this.showBotResponse("");
-          // Once we get the Response from the server 
-          this.doneLoading(botId, asyncMesgId, 2500);
-          this.updateContent(botId, asyncMesgId, 'Response from REST Call', 2500);
-          // then again ask for next Text Input question
-          // this.askTextInputQuestion(this.botId, 2500);
-          // OR
-          this.askButtonQuestion(this.botId, 2500);
-          setTimeout(() => {
-            let inputField = <NodeListOf<HTMLElement>>document.querySelectorAll('.botui-actions-text-input');
-            inputField[0].focus();
-          },2500)
+          const chatMessage: ChatMessage = new ChatMessage();
+          chatMessage._id = uuidv1();
+          chatMessage.message = res;
+          this.chatService.chat(chatMessage).subscribe(
+            res => {
+              // Once we get the Response from the server 
+              this.doneLoading(botId, asyncMesgId, 1);
+              this.updateContent(botId, asyncMesgId, res.message.content, 1);
+              this.askTextInputQuestion(botId, 1);
+              setTimeout(() => {
+                let inputField = <NodeListOf<HTMLElement>>document.querySelectorAll('.botui-actions-text-input');
+                inputField[0].focus();
+              },100)
+              
+              // then again ask for next Text Input question
+              // this.askTextInputQuestion(this.botId, 2500);
+              // OR
+              // this.askButtonQuestion(this.botId, 2500);
+              
+            },
+            error => this.toast.setMessage('Ooops Something went wrong with the bot', 'danger')
+          );
+
         });
     }
-    , timeout);
+      , timeout);
   }
 
   askButtonQuestion(botId, timeout) {
