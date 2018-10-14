@@ -13,7 +13,7 @@ export default class ChatCtrl {
         // 1. type_of_script 
         // 2. list containing Path of the script 
         //    and arguments for the script  
-        var process = spawn('python', ["./python/bot.py",
+        var process = spawn('python', ["./python/node_bot.py",
             req.body.message]);
 
         // Takes stdout data from script which executed 

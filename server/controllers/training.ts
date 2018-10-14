@@ -28,7 +28,7 @@ export default class TrainingCtrl {
             argsForTraining.push(qna.answer)
         })
         var spawn = require("child_process").spawn;
-        var process = spawn('python', ["./python/training_with_input_array.py",
+        var process = spawn('python', ["./python/node_training_sql_with_input_array.py",
             argsForTraining.join("\n")]);
 
         process.stdout.on('data', function (data) {
